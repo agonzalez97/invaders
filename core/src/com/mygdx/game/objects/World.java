@@ -1,6 +1,5 @@
 package com.mygdx.game.objects;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
@@ -10,8 +9,10 @@ public class World {
     Space space;
     Ship ship;
     AlienArmy alienArmy;
+    HUD hud;
 
-    public boolean gameOver;
+    public  boolean gameOver = false;
+    public  boolean win = false;
 
     int WORLD_WIDTH, WORLD_HEIGHT;
 
@@ -19,10 +20,10 @@ public class World {
         this.WORLD_WIDTH = WORLD_WIDTH;
         this.WORLD_HEIGHT = WORLD_HEIGHT;
 
-        BitmapFont font = new BitmapFont();
         space = new Space();
         ship = new Ship(WORLD_WIDTH/2);
         alienArmy = new AlienArmy(WORLD_WIDTH, WORLD_HEIGHT);
+        hud = new HUD(ship,alienArmy);
     }
 
     public void render(float delta, SpriteBatch batch, Assets assets){
@@ -32,6 +33,7 @@ public class World {
         batch.begin();
         space.render(batch);
         ship.render(batch);
+        hud.render(batch);
         alienArmy.render(batch);
         batch.end();
     }
@@ -43,6 +45,7 @@ public class World {
 
         checkCollisions(assets);
         checkNoLives();
+        checkWin();
     }
 
     private void checkNoLives() {
@@ -50,6 +53,11 @@ public class World {
 
             gameOver = true;
         }
+    }
+    void checkWin(){
+
+        win = alienArmy.win;
+
     }
 
 
@@ -84,6 +92,7 @@ public class World {
                         alien.kill();
                         shoot.remove();
                         assets.aliendieSound.play();
+                        ship.puntos = ship.puntos +10;
                     }
                 }
             }

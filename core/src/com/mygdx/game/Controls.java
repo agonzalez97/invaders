@@ -15,4 +15,11 @@ public class Controls {
     public static boolean isShootPressed() {
         return Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W);
     }
+    public static boolean yes(){
+        return Gdx.input.isKeyPressed(Input.Keys.Y);
+    }
+    public static boolean no(){
+        return Gdx.input.isKeyPressed(Input.Keys.N);
+    }
+
 }

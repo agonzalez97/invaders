@@ -16,10 +16,11 @@ public class Ship {
 
     Vector2 position;
 
-    int vida = 5;
+    int vida = 1;
     State state;
     float stateTime;
     float speed = 5;
+    int puntos =0;
 
     TextureRegion frame;
 
@@ -36,9 +37,6 @@ public class Ship {
 
     void setFrame(Assets assets){
         switch (state){
-            case IDLE:
-                frame = assets.naveidle.getKeyFrame(stateTime, true);
-                break;
             case LEFT:
                 frame = assets.naveleft.getKeyFrame(stateTime, true);
                 break;

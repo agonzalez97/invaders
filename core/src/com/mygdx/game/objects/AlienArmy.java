@@ -19,6 +19,8 @@ public class AlienArmy {
 
     Timer moveTimer, shootTimer;
     Random random = new Random();
+    boolean win = false;
+    boolean gameOver = false;
 
     AlienArmy(int WORLD_WIDTH, int WORLD_HEIGHT){
 
@@ -83,9 +85,15 @@ public class AlienArmy {
             if(x > maxX){
                 x = maxX;
                 speed *= -1;
+                for (Alien alien : aliens) {
+                    alien.position.y -=5f;
+                }
             } else if(x < 0){
                 x = 0;
                 speed *= -1;
+                for (Alien alien : aliens) {
+                    alien.position.y -=5f;
+                }
             }
 
             for (Alien alien : aliens) {
@@ -106,6 +114,10 @@ public class AlienArmy {
 
             shootTimer.set(random.nextFloat()%5+1);
         }
+        if (aliens.size <= 0) {
+           win = true;
+        }
+
     }
 
     private void removeDeadAliens() {
